@@ -19,6 +19,7 @@
 - Una vez con el repositorio clonado debe entrar en la carpeta pokedex con el comando`cd pokedex`
 - Instalar npm con e comando `npm i`
 - Iniciar el programa con el comando `npm run dev`
+- Ingresar en el url mostrado en terminal, por default esta en [http://localhost:5173/](http://localhost:5173/)
 
 ## Tecnologias utilizadas
 
