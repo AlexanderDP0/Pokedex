@@ -1,35 +1,71 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { useEffect, useState } from "react";
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+import axios from "axios";
+
+interface Pokemon {
+  name: string;
+  image: string;
 }
 
-export default App
+function App() {
+  const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPokemon = async () => {
+      setLoading(true);
+      setErr(null);
+
+      try {
+        const response = await axios.get<{
+          results: { name: string; url: string }[];
+        }>("https://pokeapi.co/api/v2/pokemon?limit=20");
+
+        const pokemonData = await Promise.all(
+          response.data.results.map(async (poke) => {
+            const details = await axios.get(poke.url);
+            const imageUrl =
+              details.data.sprites.front_default ||
+              "https://via.placeholder.com/80";
+
+            return {
+              name: poke.name,
+              image: imageUrl,
+            };
+          })
+        );
+
+        setPokemon(pokemonData);
+      } catch (error) {
+        setErr("Error al obtener los datos de Pokémon");
+        console.error("Error fetching Pokémon data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPokemon();
+  }, []);
+
+  if (err) return <p style={{ color: "red" }}>{err}</p>;
+  if (loading) return <p>Cargando Pokémon...</p>;
+
+  return (
+    <div className="app-container">
+      <h2>Lista de Pokémon</h2>
+      <div className="pokemon-container">
+        {pokemon.map((poke, index) => (
+          <div key={index} className="pokemon-card">
+            <h3>{poke.name}</h3>
+            <img src={poke.image} alt={poke.name} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default App;
