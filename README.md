@@ -16,8 +16,8 @@
   `git fetch origin`
   `git checkout -b main origin/main`
 
-- Una vez con el repositorio clonado debe entrar en la carpeta pokedex `cd pokedex`
-
+- Una vez con el repositorio clonado debe entrar en la carpeta pokedex con el comando`cd pokedex`
+- Instalar npm con e comando `npm i`
 - Iniciar el programa con el comando `npm run dev`
 
 ## Tecnologias utilizadas
