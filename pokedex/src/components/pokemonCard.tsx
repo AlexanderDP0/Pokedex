@@ -1,15 +1,15 @@
 import { Pokemon } from "../services/pokemonAxios";
-import React from "react";
 
-interface Props {
+interface PokemonCardProps {
   pokemon: Pokemon;
+  onClick: (pokemon: Pokemon) => void;
 }
 
-const PokemonCard: React.FC<Props> = ({ pokemon }) => {
+const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, onClick }) => {
   return (
-    <div className="pokemon-card">
-      <h3>{pokemon.name}</h3>
+    <div className="pokemon-card" onClick={() => onClick(pokemon)}>
       <img src={pokemon.image} alt={pokemon.name} />
+      <h3>{pokemon.name}</h3>
     </div>
   );
 };
