@@ -2,7 +2,7 @@
 
 ## Descripción
 
-- Se trata de un proyecto en React Vite creado desde 0, donde utilizando la API publica de Pokemon [API](https://pokeapi.co/api/v2/pokemon) se mostraban los primeros 20 pokemon.
+- Se trata de un proyecto en React Vite creado desde 0, donde utilizando la API publica de Pokemon [API]([https://pokeapi.co/api/v2/pokemon](https://pokeapi.co/)) se mostraban los primeros 20 pokemon.
 - Cada card de la lista muestra en un primer vistazo nombre y su imagen de cada pokemon.
 - Al presionar una card se despliega una segunda card con la informacion más detallada del pokemon como son tipo, peso y sus habilidaes.
 - Se implemento un buscador para los pokemon.
